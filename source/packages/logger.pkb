@@ -2830,7 +2830,7 @@ as
          po_id, p_logger_level, l_text,
          systimestamp, lower(p_scope), sys_context('userenv','module'),
          sys_context('userenv','action'),
-         nvl($if $$apex $then apex_application.g_user $else user $end,user),
+         nvl($if $$apex $then apex_application.g_user $else nvl2(sys_context('userenv','proxy_user'),sys_context('userenv','proxy_user')||'['||user||']',user) $end,nvl2(sys_context('userenv','proxy_user'),sys_context('userenv','proxy_user')||'['||user||']',user)),
          sys_context('userenv','client_identifier'),
          p_call_stack, upper(p_unit_name), p_line_no,
          null,
